@@ -16,7 +16,7 @@ export default function Navbar() {
       zIndex: 100
     }}>
       <div className="container flex items-center justify-between" style={{ height: '70px' }}>
-        {/* Logo */}
+
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <div style={{ 
             backgroundColor: 'var(--primary-color)', 
@@ -36,7 +36,7 @@ export default function Navbar() {
           <h1 className="navbar-brand" style={{ fontSize: '1.3rem', margin: 0, color: 'var(--primary-dark)' }}>Raízes do Nordeste</h1>
         </Link>
 
-        {/* Desktop: unidade + ações */}
+
         <div className="navbar-desktop">
           <button className="flex items-center gap-2" style={{ 
             backgroundColor: 'var(--bg-color)', 
@@ -80,7 +80,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile: hamburger + carrinho */}
+
         <div className="navbar-mobile">
           <Link to="/checkout" style={{ position: 'relative', color: 'var(--primary-color)' }}>
             <ShoppingBag size={22} />
@@ -110,7 +110,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Menu mobile expandido */}
+
       {menuOpen && (
         <div className="mobile-menu" onClick={() => setMenuOpen(false)}>
           <button className="flex items-center gap-2" style={{ padding: '1rem 1.5rem', width: '100%', color: 'var(--text-muted)', fontSize: '0.95rem' }}>

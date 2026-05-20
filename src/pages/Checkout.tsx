@@ -9,7 +9,7 @@ export default function Checkout() {
   const [paymentStatus, setPaymentStatus] = useState<'idle' | 'processing' | 'success'>('idle');
   const [consent, setConsent] = useState(false);
 
-  // Gera um número de pedido aleatório
+
   const orderNumber = `RN${Math.floor(1000 + Math.random() * 9000)}`;
   const earnedPoints = Math.floor(totalPrice);
 
@@ -17,14 +17,14 @@ export default function Checkout() {
     if (!consent || items.length === 0) return;
     setPaymentStatus('processing');
     
-    // Simula chamada ao provedor externo de pagamento
+    // simula o tempo de resposta do gateway
     setTimeout(() => {
       setPaymentStatus('success');
       clearCart();
     }, 2500);
   };
 
-  // Tela de sucesso
+
   if (paymentStatus === 'success') {
     return (
       <div className="container animate-fade-in" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center' }}>
@@ -44,7 +44,7 @@ export default function Checkout() {
     );
   }
 
-  // Carrinho vazio
+
   if (items.length === 0 && paymentStatus === 'idle') {
     return (
       <div className="container animate-fade-in" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '50vh', textAlign: 'center' }}>
@@ -65,7 +65,7 @@ export default function Checkout() {
       
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
         
-        {/* Resumo do Pedido */}
+
         <div style={{ backgroundColor: 'var(--surface-color)', padding: '1.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)' }}>
           <h3 style={{ fontSize: '1.3rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.75rem' }}>
             Seu Pedido ({totalItems} {totalItems === 1 ? 'item' : 'itens'})
@@ -106,7 +106,7 @@ export default function Checkout() {
           </div>
         </div>
 
-        {/* Pagamento + LGPD */}
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
           <div style={{ backgroundColor: 'var(--surface-color)', padding: '1.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-md)' }}>
@@ -115,7 +115,7 @@ export default function Checkout() {
               O pagamento é processado por um provedor externo. Nenhum dado de cartão é armazenado por nós.
             </p>
             
-            {/* Seletor de método */}
+
             <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.5rem' }}>
               <button 
                 onClick={() => setPaymentMethod('card')}
@@ -161,7 +161,7 @@ export default function Checkout() {
               </button>
             </div>
 
-            {/* Consentimento LGPD */}
+
             <div style={{ backgroundColor: '#F8F9FA', padding: '1rem', borderRadius: 'var(--radius-md)', marginBottom: '1.5rem', fontSize: '0.85rem' }}>
               <label style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start', cursor: 'pointer' }}>
                 <input 

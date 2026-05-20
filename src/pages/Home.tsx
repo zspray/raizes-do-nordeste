@@ -83,7 +83,7 @@ export default function Home() {
 
   return (
     <div className="animate-fade-in">
-      {/* Banner do programa de fidelidade */}
+
       <section style={{ 
         background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))', 
         color: 'white', 
@@ -103,7 +103,7 @@ export default function Home() {
       <div className="container">
         <h2 style={{ fontSize: '1.75rem', marginBottom: '1.5rem' }}>Cardápio</h2>
         
-        {/* Categorias */}
+
         <div style={{ display: 'flex', gap: '0.75rem', overflowX: 'auto', paddingBottom: '1rem', marginBottom: '2rem' }}>
           {MOCK_CATEGORIES.map(category => (
             <button 
@@ -127,7 +127,7 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Produtos */}
+
         <div style={{ 
           display: 'grid', 
           gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', 

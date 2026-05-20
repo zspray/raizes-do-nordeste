@@ -6,7 +6,6 @@
   
   --bg-color: #FAFAF8;
   --surface-color: #FFFFFF;
-  --surface-hover: #F0EFEA;
   
   --text-main: #2D2420;
   --text-muted: #736761;
@@ -59,7 +58,7 @@ button {
   background: none;
 }
 
-/* Utilities */
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -91,16 +90,6 @@ button {
   box-shadow: 0 6px 16px rgba(230, 81, 0, 0.4);
 }
 
-.btn-outline {
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  background-color: transparent;
-}
-
-.btn-outline:hover {
-  background-color: var(--primary-color);
-  color: var(--text-inverse);
-}
 
 .btn-icon {
   width: 48px;
