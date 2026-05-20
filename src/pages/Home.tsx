@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Plus, Check } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
+const BASE = import.meta.env.BASE_URL;
+
 const MOCK_CATEGORIES = ['Populares', 'Tapiocas', 'Cuscuz', 'Bebidas'];
 
 const MOCK_PRODUCTS = [
@@ -11,7 +13,7 @@ const MOCK_PRODUCTS = [
     description: 'Cuscuz de milho no vapor, recheado com carne de sol desfiada, queijo coalho e manteiga da terra.',
     price: 24.90,
     category: 'Cuscuz',
-    image: 'https://images.unsplash.com/photo-1596450514735-11516e873eb3?auto=format&fit=crop&w=800&q=80',
+    image: `${BASE}images/cuscuz.png`,
     popular: true
   },
   {
@@ -20,7 +22,7 @@ const MOCK_PRODUCTS = [
     description: 'Massa fina e crocante com recheio generoso de charque refogada e nata.',
     price: 18.50,
     category: 'Tapiocas',
-    image: 'https://images.unsplash.com/photo-1627998980838-8e65842c67c5?auto=format&fit=crop&w=800&q=80',
+    image: `${BASE}images/tapioca_charque.png`,
     popular: true
   },
   {
@@ -29,7 +31,7 @@ const MOCK_PRODUCTS = [
     description: 'Polpa natural de cajá, batida com gelo. Refrescante e bem docinho.',
     price: 8.00,
     category: 'Bebidas',
-    image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80',
+    image: `${BASE}images/suco_caja.png`,
     popular: false
   },
   {
@@ -38,7 +40,7 @@ const MOCK_PRODUCTS = [
     description: 'Queijo coalho assado, banana frita, açúcar e canela. A sobremesa perfeita.',
     price: 16.90,
     category: 'Tapiocas',
-    image: 'https://images.unsplash.com/photo-1627998980838-8e65842c67c5?auto=format&fit=crop&w=800&q=80',
+    image: `${BASE}images/tapioca_cartola.png`,
     popular: false
   },
   {
@@ -47,7 +49,7 @@ const MOCK_PRODUCTS = [
     description: 'Café passado na hora, estilo nordestino. Servido quente.',
     price: 5.50,
     category: 'Bebidas',
-    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80',
+    image: `${BASE}images/cafe_coado.png`,
     popular: true
   },
   {
@@ -56,7 +58,7 @@ const MOCK_PRODUCTS = [
     description: 'Bolo caseiro de macaxeira com coco ralado. Receita de família.',
     price: 12.00,
     category: 'Populares',
-    image: 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=800&q=80',
+    image: `${BASE}images/bolo_macaxeira.png`,
     popular: true
   }
 ];
