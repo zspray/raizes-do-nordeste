@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Plus } from 'lucide-react';
+import { Plus, Check } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 const MOCK_CATEGORIES = ['Populares', 'Tapiocas', 'Cuscuz', 'Bebidas'];
 
@@ -25,7 +26,7 @@ const MOCK_PRODUCTS = [
   {
     id: 3,
     name: 'Suco de Cajá',
-    description: 'Polpa natural de cajá, batida com gelo. Refrescante e docinho.',
+    description: 'Polpa natural de cajá, batida com gelo. Refrescante e bem docinho.',
     price: 8.00,
     category: 'Bebidas',
     image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80',
@@ -39,47 +40,78 @@ const MOCK_PRODUCTS = [
     category: 'Tapiocas',
     image: 'https://images.unsplash.com/photo-1627998980838-8e65842c67c5?auto=format&fit=crop&w=800&q=80',
     popular: false
+  },
+  {
+    id: 5,
+    name: 'Café Coado',
+    description: 'Café passado na hora, estilo nordestino. Servido quente.',
+    price: 5.50,
+    category: 'Bebidas',
+    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80',
+    popular: true
+  },
+  {
+    id: 6,
+    name: 'Bolo de Macaxeira',
+    description: 'Bolo caseiro de macaxeira com coco ralado. Receita de família.',
+    price: 12.00,
+    category: 'Populares',
+    image: 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=800&q=80',
+    popular: true
   }
 ];
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('Populares');
+  const [addedIds, setAddedIds] = useState<number[]>([]);
+  const { addItem } = useCart();
 
   const filteredProducts = MOCK_PRODUCTS.filter(product => {
     if (activeCategory === 'Populares') return product.popular;
     return product.category === activeCategory;
   });
 
+  const handleAdd = (product: typeof MOCK_PRODUCTS[0]) => {
+    addItem(product.id, product.name, product.price);
+    setAddedIds(prev => [...prev, product.id]);
+    setTimeout(() => {
+      setAddedIds(prev => prev.filter(id => id !== product.id));
+    }, 800);
+  };
+
   return (
     <div className="animate-fade-in">
+      {/* Banner do programa de fidelidade */}
       <section style={{ 
-        backgroundColor: 'var(--primary-color)', 
+        background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))', 
         color: 'white', 
-        padding: '3rem 0',
+        padding: '2.5rem 0',
         marginBottom: '2rem',
         borderRadius: '0 0 var(--radius-lg) var(--radius-lg)'
       }}>
         <div className="container">
-          <h2 style={{ color: 'white', fontSize: '2.5rem', marginBottom: '0.5rem' }}>Bem-vindo, João!</h2>
-          <p style={{ fontSize: '1.1rem', opacity: 0.9 }}>
-            Você tem <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>150 pontos</span> no programa de fidelidade.
+          <p style={{ fontSize: '1rem', opacity: 0.85, marginBottom: '0.25rem' }}>Programa de Fidelidade</p>
+          <h2 style={{ color: 'white', fontSize: '2rem', marginBottom: '0.5rem' }}>Você tem <span style={{ color: 'var(--secondary-color)' }}>150 pontos</span></h2>
+          <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>
+            A cada R$ 1,00 em compras você acumula 1 ponto. Troque por descontos!
           </p>
         </div>
       </section>
 
       <div className="container">
-        <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Cardápio Digital</h2>
+        <h2 style={{ fontSize: '1.75rem', marginBottom: '1.5rem' }}>Cardápio</h2>
         
         {/* Categorias */}
-        <div style={{ display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '1rem', marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', gap: '0.75rem', overflowX: 'auto', paddingBottom: '1rem', marginBottom: '2rem' }}>
           {MOCK_CATEGORIES.map(category => (
             <button 
               key={category}
               onClick={() => setActiveCategory(category)}
               style={{
-                padding: '0.75rem 1.5rem',
+                padding: '0.6rem 1.25rem',
                 borderRadius: 'var(--radius-full)',
                 fontWeight: 600,
+                fontSize: '0.9rem',
                 whiteSpace: 'nowrap',
                 transition: 'all var(--transition-fast)',
                 backgroundColor: activeCategory === category ? 'var(--primary-color)' : 'var(--surface-color)',
@@ -93,47 +125,65 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Lista de Produtos */}
+        {/* Produtos */}
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
-          gap: '2rem' 
+          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', 
+          gap: '1.5rem',
+          paddingBottom: '2rem'
         }}>
-          {filteredProducts.map(product => (
-            <div key={product.id} style={{
-              backgroundColor: 'var(--surface-color)',
-              borderRadius: 'var(--radius-md)',
-              overflow: 'hidden',
-              boxShadow: 'var(--shadow-sm)',
-              transition: 'transform var(--transition-normal)',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <div style={{ height: '200px', overflow: 'hidden' }}>
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                />
-              </div>
-              <div style={{ padding: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{product.name}</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem', height: '40px', overflow: 'hidden' }}>
-                  {product.description}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--primary-dark)' }}>
-                    R$ {product.price.toFixed(2).replace('.', ',')}
-                  </span>
-                  <button className="btn-icon" style={{ backgroundColor: 'var(--primary-color)', color: 'white' }}>
-                    <Plus size={24} />
-                  </button>
+          {filteredProducts.map(product => {
+            const justAdded = addedIds.includes(product.id);
+            return (
+              <div key={product.id} style={{
+                backgroundColor: 'var(--surface-color)',
+                borderRadius: 'var(--radius-md)',
+                overflow: 'hidden',
+                boxShadow: 'var(--shadow-sm)',
+                transition: 'transform var(--transition-normal), box-shadow var(--transition-normal)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+              }}
+              >
+                <div style={{ height: '180px', overflow: 'hidden' }}>
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    loading="lazy"
+                  />
+                </div>
+                <div style={{ padding: '1.25rem' }}>
+                  <h3 style={{ fontSize: '1.1rem', marginBottom: '0.4rem' }}>{product.name}</h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '1rem', minHeight: '36px', overflow: 'hidden' }}>
+                    {product.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--primary-dark)' }}>
+                      R$ {product.price.toFixed(2).replace('.', ',')}
+                    </span>
+                    <button 
+                      className="btn-icon" 
+                      onClick={() => handleAdd(product)}
+                      style={{ 
+                        backgroundColor: justAdded ? 'var(--success-color)' : 'var(--primary-color)', 
+                        color: 'white',
+                        transition: 'background-color 0.2s ease'
+                      }}
+                    >
+                      {justAdded ? <Check size={20} /> : <Plus size={20} />}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

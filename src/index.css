@@ -131,14 +131,6 @@ button {
   animation: fadeIn 0.5s ease-out forwards;
 }
 
-/* Glassmorphism */
-.glass {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
 /* Layout Utilities */
 .flex { display: flex; }
 .items-center { align-items: center; }
@@ -148,3 +140,41 @@ button {
 .gap-4 { gap: 1rem; }
 .gap-6 { gap: 1.5rem; }
 .grid { display: grid; }
+
+/* Navbar Responsive */
+.navbar-desktop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-mobile {
+  display: none;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  border-top: 1px solid var(--border-color);
+  background: var(--surface-color);
+}
+
+@media (max-width: 768px) {
+  .navbar-desktop {
+    display: none;
+  }
+
+  .navbar-mobile {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem !important;
+  }
+}
