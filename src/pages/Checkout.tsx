@@ -3,14 +3,16 @@ import { CreditCard, CheckCircle, ArrowLeft, Trash2, Plus, Minus, QrCode } from 
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
+function generateOrderNumber() {
+  return `RN${Math.floor(1000 + Math.random() * 9000)}`;
+}
+
 export default function Checkout() {
   const { items, totalPrice, totalItems, addItem, removeItem, clearCart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'pix'>('card');
   const [paymentStatus, setPaymentStatus] = useState<'idle' | 'processing' | 'success'>('idle');
   const [consent, setConsent] = useState(false);
-
-
-  const orderNumber = `RN${Math.floor(1000 + Math.random() * 9000)}`;
+  const [orderNumber] = useState(generateOrderNumber);
   const earnedPoints = Math.floor(totalPrice);
 
   const handlePayment = () => {
